@@ -15,17 +15,18 @@ model Task {
 }
 
 model Game {
-  id     Int      @id @default(autoincrement())
-  status String
-  player Player[]
-  Enemy  Enemy[]
+  id        String   @id
+  status    String
+  createdAt DateTime @default(now())
+  player    Player[]
+  Enemy     Enemy[]
 }
 
 model Enemy {
   id     Int      @id @default(autoincrement())
   health Int
   score  Int
-  gameId Int
+  gameId String
   game   Game     @relation(fields: [gameId], references: [id])
   Bullet Bullet[]
 }
@@ -35,14 +36,14 @@ model Player {
   life   Int      @default(3)
   score  Int      @default(0)
   speed  Float
-  gameId Int
+  gameId String
   game   Game     @relation(fields: [gameId], references: [id])
   Bullet Bullet[]
 }
 
 model Bullet {
   id             Int     @id @default(autoincrement())
-  speed          Float
+  damage         Int
   isPlayerBullet Boolean
   playerId       String?
   player         Player? @relation(fields: [playerId], references: [userId])

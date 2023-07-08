@@ -7,9 +7,9 @@ Phase 1 - Demo
 ```mermaid
 erDiagram
     Game {
-        int id PK
+        string id PK
         string status "WAITING | PLAYING | END"
-        string[] playerId FK
+        datetime createdAt
     }
     Player {
         string userId PK
@@ -29,6 +29,7 @@ erDiagram
         int id PK
         int health
         int score
+        int gameId FK
     }
 
     Game ||--|{ Player : "contains"
