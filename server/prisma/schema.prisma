@@ -13,3 +13,39 @@ model Task {
   done      Boolean
   createdAt DateTime
 }
+
+model Game {
+  id     Int      @id @default(autoincrement())
+  status String
+  player Player[]
+  Enemy  Enemy[]
+}
+
+model Enemy {
+  id     Int      @id @default(autoincrement())
+  health Int
+  score  Int
+  gameId Int
+  game   Game     @relation(fields: [gameId], references: [id])
+  Bullet Bullet[]
+}
+
+model Player {
+  userId String   @id
+  life   Int      @default(3)
+  score  Int      @default(0)
+  speed  Float
+  gameId Int
+  game   Game     @relation(fields: [gameId], references: [id])
+  Bullet Bullet[]
+}
+
+model Bullet {
+  id             Int     @id @default(autoincrement())
+  speed          Float
+  isPlayerBullet Boolean
+  playerId       String?
+  player         Player? @relation(fields: [playerId], references: [userId])
+  enemyId        Int?
+  enemy          Enemy?  @relation(fields: [enemyId], references: [id])
+}
