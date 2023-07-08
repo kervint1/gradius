@@ -13,6 +13,8 @@ erDiagram
     }
     Player {
         string userId PK
+        float x
+        float y
         int life
         int score
         float speed
@@ -21,9 +23,9 @@ erDiagram
     Bullet {
         int id PK
         int damage
+        string type "BULLET | MISSILE | LASER"
         boolean isPlayerBullet
-        string type FK "BULLET | MISSILE | LASER"
-        string playerId FK
+        string gameId FK
     }
     Enemy {
         int id PK
@@ -33,9 +35,8 @@ erDiagram
     }
 
     Game ||--|{ Player : "contains"
-    Game ||--|{ Enemy: "contains"
-    Player ||--o{ Bullet: "shoot"
-    Enemy ||--o{ Bullet: "shoot"
+    Game ||--o{ Enemy: "contains"
+    Game ||--o{ Bullet: "has"
 ```
 
 # Next frourio starter

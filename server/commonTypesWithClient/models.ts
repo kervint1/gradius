@@ -16,12 +16,14 @@ export type TaskModel = {
 
 export type GameModel = {
   id: GameId;
-  status: string;
+  status: 'WAITING' | 'PLAYING' | 'END';
   createdAt: number;
 };
 
 export type PlayerModel = {
   userId: UserId;
+  x: number;
+  y: number;
   life: number;
   score: number;
   speed: number;
@@ -30,15 +32,18 @@ export type PlayerModel = {
 
 export type BulletModel = {
   id: number;
+  x: number;
+  y: number;
   damage: number;
-  type: string;
+  type: 'BULLET' | 'MISSILE' | 'LASER';
   isPlayerBullet: boolean;
-  playerUserId?: UserId;
-  enemyId?: number;
+  gameId: GameId;
 };
 
 export type EnemyModel = {
   id: number;
+  x: number;
+  y: number;
   health: number;
   score: number;
   gameId: GameId;

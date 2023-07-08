@@ -20,33 +20,37 @@ model Game {
   createdAt DateTime @default(now())
   player    Player[]
   Enemy     Enemy[]
-}
-
-model Enemy {
-  id     Int      @id @default(autoincrement())
-  health Int
-  score  Int
-  gameId String
-  game   Game     @relation(fields: [gameId], references: [id])
-  Bullet Bullet[]
+  Bullet    Bullet[]
 }
 
 model Player {
-  userId String   @id
-  life   Int      @default(3)
-  score  Int      @default(0)
+  userId String @id
+  x      Float
+  y      Float
+  life   Int    @default(3)
+  score  Int    @default(0)
   speed  Float
   gameId String
-  game   Game     @relation(fields: [gameId], references: [id])
-  Bullet Bullet[]
+  game   Game   @relation(fields: [gameId], references: [id])
 }
 
 model Bullet {
   id             Int     @id @default(autoincrement())
+  x              Float
+  y              Float
   damage         Int
+  type           String
   isPlayerBullet Boolean
-  playerId       String?
-  player         Player? @relation(fields: [playerId], references: [userId])
-  enemyId        Int?
-  enemy          Enemy?  @relation(fields: [enemyId], references: [id])
+  gameId         String
+  game           Game    @relation(fields: [gameId], references: [id])
+}
+
+model Enemy {
+  id     Int    @id @default(autoincrement())
+  x      Float
+  y      Float
+  health Int
+  score  Int
+  gameId String
+  game   Game   @relation(fields: [gameId], references: [id])
 }
