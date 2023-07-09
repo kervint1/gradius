@@ -13,7 +13,7 @@ const toModel = (prismaPlayer: Player): PlayerModel => ({
   gameId: gameIdParser.parse(prismaPlayer.gameId),
 });
 
-export const PlayerRepository = {
+export const playerRepository = {
   save: async (player: PlayerModel): Promise<void> => {
     await prismaClient.player.upsert({
       where: { userId: player.userId },
