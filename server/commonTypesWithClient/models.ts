@@ -48,3 +48,5 @@ export type EnemyModel = {
   score: number;
   gameId: GameId;
 };
+
+export type KeyEvent = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';

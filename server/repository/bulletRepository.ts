@@ -14,7 +14,7 @@ const toModel = (prismaBullet: Bullet): BulletModel => ({
   gameId: gameIdParser.parse(prismaBullet.gameId),
 });
 
-export const BulletRepository = {
+export const bulletRepository = {
   save: async (bullet: BulletModel): Promise<void> => {
     await prismaClient.bullet.upsert({
       where: { id: bullet.id },
