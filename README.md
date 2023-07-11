@@ -1,5 +1,48 @@
 # Gradius
 
+## ER Diagram
+
+Phase 1 - Demo
+
+```mermaid
+erDiagram
+    Game {
+        string id PK
+        string status "WAITING | PLAYING | END"
+        datetime createdAt
+    }
+    Player {
+        string userId PK
+        int gameId PK,FK
+        float x
+        float y
+        int life
+        int score
+        float speed
+    }
+    Bullet {
+        int id PK
+        float x
+        float y
+        int damage
+        string type "BULLET | MISSILE | LASER"
+        boolean isPlayerBullet
+        string gameId FK
+    }
+    Enemy {
+        int id PK
+        float x
+        float y
+        int health
+        int score
+        int gameId FK
+    }
+
+    Game ||--|| Player : "contains"
+    Game ||--o{ Enemy: "contains"
+    Game ||--o{ Bullet: "contains"
+```
+
 # Next frourio starter
 
 フロントエンドは src ディレクトリの [Next.js](https://nextjs.org/) 、バックエンドは server ディレクトリの [frourio](https://frourio.com/) で構築された TypeScript で一気通貫開発が可能なモノレポサービス
