@@ -18,7 +18,7 @@ model Game {
   id        String   @id
   status    String
   createdAt DateTime @default(now())
-  player    Player[]
+  player    Player?
   Enemy     Enemy[]
   Bullet    Bullet[]
 }
@@ -30,7 +30,8 @@ model Player {
   life   Int    @default(3)
   score  Int    @default(0)
   speed  Float
-  gameId String
+
+  gameId String @unique
   game   Game   @relation(fields: [gameId], references: [id])
 }
 
