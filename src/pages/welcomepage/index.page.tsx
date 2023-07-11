@@ -6,7 +6,7 @@ import { Loading } from 'src/components/Loading/Loading';
 import { BasicHeader } from 'src/pages/@components/BasicHeader/BasicHeader';
 import { apiClient } from 'src/utils/apiClient';
 import { returnNull } from 'src/utils/returnNull';
-import { userAtom } from '../atoms/user';
+import { userAtom } from '../../atoms/user';
 import styles from './index.module.css';
 
 const Home = () => {
@@ -54,7 +54,6 @@ const Home = () => {
       <form style={{ textAlign: 'center', marginTop: '80px' }} onSubmit={createTask}>
         <input value={label} type="text" onChange={inputLabel} />
         <input type="submit" value="ADD" />
-        <h1>asd</h1>
       </form>
       <ul className={styles.tasks}>
         {tasks.map((task) => (
