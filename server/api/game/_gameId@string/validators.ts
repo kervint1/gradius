@@ -4,4 +4,3 @@ import { defineValidators } from './$relay';
 export default defineValidators(() => ({
   params: z.object({ gameId: z.string() }),
 }));
-
