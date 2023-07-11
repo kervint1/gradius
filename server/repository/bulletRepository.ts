@@ -23,7 +23,6 @@ export const bulletRepository = {
         y: bullet.y,
       },
       create: {
-        id: bullet.id,
         x: bullet.x,
         y: bullet.y,
         damage: bullet.damage,
