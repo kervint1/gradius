@@ -25,4 +25,7 @@ export const bulletUseCase = {
 
     return movedBullet;
   },
+  deleteBullet: async (bulletId: string): Promise<void> => {
+    await bulletRepository.delete(bulletId);
+  },
 };

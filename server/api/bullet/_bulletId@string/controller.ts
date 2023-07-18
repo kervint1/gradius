@@ -10,4 +10,8 @@ export default defineController(() => ({
     status: 200,
     body: await bulletUseCase.moveBullet(bulletId),
   }),
+  delete: async ({ params: { bulletId } }) => {
+    await bulletUseCase.deleteBullet(bulletId);
+    return { status: 204 };
+  },
 }));

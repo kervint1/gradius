@@ -7,4 +7,7 @@ export type Methods = {
   patch: {
     resBody: BulletModel;
   };
+  delete: {
+    status: 204;
+  };
 };
