@@ -4,4 +4,7 @@ export type Methods = {
   get: {
     resBody: BulletModel;
   };
+  patch: {
+    resBody: BulletModel;
+  };
 };

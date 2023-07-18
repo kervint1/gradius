@@ -1,7 +1,8 @@
 import type { BulletModel, KeyEvent } from '$/commonTypesWithClient/models';
 import { bulletRepository } from '$/repository/bulletRepository';
 import { playerRepository } from '$/repository/playerRepository';
-import { gameIdParser } from '$/service/idParsers';
+import { bulletIdParser, gameIdParser } from '$/service/idParsers';
+import { randomUUID } from 'crypto';
 
 export const controllerUseCase = {
   movement: async (userId: string, keyEvent: KeyEvent): Promise<void> => {
@@ -29,7 +30,7 @@ export const controllerUseCase = {
     const player = await playerRepository.read(userId);
 
     const newBullet: BulletModel = {
-      id: 0,
+      id: bulletIdParser.parse(randomUUID()),
       x: player.x,
       y: player.y,
       damage: 10,

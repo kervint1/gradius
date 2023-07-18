@@ -1,11 +1,11 @@
 import type { BulletModel } from '$/commonTypesWithClient/models';
-import { gameIdParser } from '$/service/idParsers';
+import { bulletIdParser, gameIdParser } from '$/service/idParsers';
 import { prismaClient } from '$/service/prismaClient';
 import type { Bullet } from '@prisma/client';
 import { z } from 'zod';
 
 const toModel = (prismaBullet: Bullet): BulletModel => ({
-  id: prismaBullet.id,
+  id: bulletIdParser.parse(prismaBullet.id),
   x: prismaBullet.x,
   y: prismaBullet.y,
   damage: prismaBullet.damage,
@@ -16,6 +16,7 @@ const toModel = (prismaBullet: Bullet): BulletModel => ({
 
 export const bulletRepository = {
   save: async (bullet: BulletModel): Promise<void> => {
+    console.log(bullet);
     await prismaClient.bullet.upsert({
       where: { id: bullet.id },
       update: {
@@ -23,6 +24,7 @@ export const bulletRepository = {
         y: bullet.y,
       },
       create: {
+        id: bullet.id,
         x: bullet.x,
         y: bullet.y,
         damage: bullet.damage,
@@ -36,14 +38,14 @@ export const bulletRepository = {
     const bullet = await prismaClient.bullet.findMany({ where: { gameId } });
     return bullet.map(toModel);
   },
-  read: async (bulletId: number): Promise<BulletModel> => {
+  read: async (bulletId: string): Promise<BulletModel> => {
     const bullet = await prismaClient.bullet.findFirst({
       where: { id: bulletId },
     });
     if (!bullet) throw new Error("bullet doesn't exist");
     return toModel(bullet);
   },
-  delete: async (bulletId: number): Promise<void> => {
+  delete: async (bulletId: string): Promise<void> => {
     await prismaClient.bullet.delete({
       where: { id: bulletId },
     });

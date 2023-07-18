@@ -6,4 +6,8 @@ export default defineController(() => ({
     status: 200,
     body: await bulletUseCase.getBullet(bulletId),
   }),
+  patch: async ({ params: { bulletId } }) => ({
+    status: 200,
+    body: await bulletUseCase.moveBullet(bulletId),
+  }),
 }));
