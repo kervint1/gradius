@@ -20,8 +20,10 @@ const ControllerPage = () => {
           <div className={styles.bottom} />
           <div className={styles.center} />
         </div>
-        <div className={styles.btnone} />
-        <div className={styles.btntwo} />
+        <div className={styles.button}>
+          <div className={styles.btnone} />
+          <div className={styles.btntwo} />
+        </div>
       </div>
     </>
   );
