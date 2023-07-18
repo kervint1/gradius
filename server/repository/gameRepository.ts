@@ -27,6 +27,17 @@ export const gameRepository = {
     if (!game) throw new Error("Game doesn't exist");
     return toModel(game);
   },
+  readByUserId: async (userId: string): Promise<GameModel | null> => {
+    const game = await prismaClient.game.findFirst({
+      where: {
+        player: {
+          userId,
+        },
+      },
+    });
+    if (!game) return null;
+    return toModel(game);
+  },
   delete: async (gameId: string): Promise<void> => {
     await prismaClient.game.delete({
       where: { id: gameId },
