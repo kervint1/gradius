@@ -1,10 +1,10 @@
 import type { EnemyModel } from '$/commonTypesWithClient/models';
-import { gameIdParser } from '$/service/idParsers';
+import { enemyIdParser, gameIdParser } from '$/service/idParsers';
 import { prismaClient } from '$/service/prismaClient';
 import type { Enemy } from '@prisma/client';
 
 const toModel = (prismaEnemy: Enemy): EnemyModel => ({
-  id: prismaEnemy.id,
+  id: enemyIdParser.parse(prismaEnemy.id),
   x: prismaEnemy.x,
   y: prismaEnemy.y,
   health: prismaEnemy.health,
@@ -35,14 +35,14 @@ export const enemyRepository = {
     const enemy = await prismaClient.enemy.findMany({ where: { gameId } });
     return enemy.map(toModel);
   },
-  read: async (enemyId: number): Promise<EnemyModel> => {
+  read: async (enemyId: string): Promise<EnemyModel> => {
     const enemy = await prismaClient.enemy.findFirst({
       where: { id: enemyId },
     });
     if (!enemy) throw new Error("Enemy doesn't exist");
     return toModel(enemy);
   },
-  delete: async (enemyId: number): Promise<void> => {
+  delete: async (enemyId: string): Promise<void> => {
     await prismaClient.enemy.delete({
       where: { id: enemyId },
     });

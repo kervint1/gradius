@@ -36,7 +36,7 @@ model Player {
 }
 
 model Bullet {
-  id             Int     @id @default(autoincrement())
+  id             String  @id
   x              Float
   y              Float
   damage         Int
@@ -47,7 +47,7 @@ model Bullet {
 }
 
 model Enemy {
-  id     Int    @id @default(autoincrement())
+  id     String @id
   x      Float
   y      Float
   health Int

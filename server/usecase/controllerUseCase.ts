@@ -1,10 +1,12 @@
-import type { KeyEvent } from '$/commonTypesWithClient/models';
+import type { BulletModel, KeyEvent } from '$/commonTypesWithClient/models';
+import { bulletRepository } from '$/repository/bulletRepository';
 import { playerRepository } from '$/repository/playerRepository';
-import { playerUseCase } from './playerUseCase';
+import { bulletIdParser, gameIdParser } from '$/service/idParsers';
+import { randomUUID } from 'crypto';
 
 export const controllerUseCase = {
   movement: async (userId: string, keyEvent: KeyEvent): Promise<void> => {
-    const player = await playerUseCase.getCurrentPlayer(userId);
+    const player = await playerRepository.read(userId);
 
     switch (keyEvent) {
       case 'UP':
@@ -23,5 +25,19 @@ export const controllerUseCase = {
         break;
     }
     await playerRepository.save(player);
+  },
+  shoot: async (gameId: string, userId: string): Promise<void> => {
+    const player = await playerRepository.read(userId);
+
+    const newBullet: BulletModel = {
+      id: bulletIdParser.parse(randomUUID()),
+      x: player.x,
+      y: player.y,
+      damage: 10,
+      type: 'BULLET',
+      isPlayerBullet: true,
+      gameId: gameIdParser.parse(gameId),
+    };
+    await bulletRepository.save(newBullet);
   },
 };
