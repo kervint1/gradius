@@ -6,19 +6,19 @@ import { apiClient } from 'src/utils/apiClient';
 const GamePage = () => {
   const router = useRouter();
   const { gameId } = router.query;
-  const [Player, setPlayer] = useState<PlayerModel>();
-  const fetchTasks = async () => {
-    const Player1 = await apiClient.player.get();
-    if (Player1 !== null) setPlayer(Player);
+  const [player, setPlayer] = useState<PlayerModel>();
+  const fetchPlayer = async () => {
+    const playerResponse = await apiClient.player.get();
+    if (playerResponse !== null) setPlayer(playerResponse.body);
   };
 
   // const move = async () => {
   //   await apiClient.player.movement.patch({ body: { keyEvent: 'UP' } });
-  //   await fetchTasks();
+  //   await fetchPlayer();
   // };
 
   useEffect(() => {
-    fetchTasks();
+    fetchPlayer();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
