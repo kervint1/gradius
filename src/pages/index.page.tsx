@@ -1,18 +1,32 @@
+import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
+import { userAtom } from 'src/atoms/user';
+import { apiClient } from 'src/utils/apiClient';
 
 const Home = () => {
   const router = useRouter();
-
+  const [user] = useAtom(userAtom);
   // スタートボタンが押されたときの処理
-  const handleStartButtonClick = () => {
-    const slug = 'abc';
-
-    router.push(`/game/${slug}`);
+  const handleStartButtonClick = async () => {
+    console.log('Before post request');
+    try {
+      const response = await apiClient.game.post();
+      const gameId = response.body.id;
+      router.push(`/game/${gameId}`);
+    } catch (error) {
+      console.error('Post request failed', error); // エラーハンドリング
+    }
   };
-  const handleControllerButtonClick = () => {
-    const slug = 'abc';
 
-    router.push(`/controller/${slug}`);
+  const handleControllerButtonClick = async () => {
+    try {
+      await apiClient.game.post(); // 正しい関数呼び出し
+      const response = await apiClient.game.post();
+      const gameId = response.body.id;
+      router.push(`/controller/${gameId}`);
+    } catch (error) {
+      console.error('Post request failed', error); // エラーハンドリング
+    }
   };
 
   return (
