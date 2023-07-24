@@ -8,13 +8,16 @@ const GamePage = () => {
   const router = useRouter();
   const { gameId } = router.query;
   const [player, setPlayer] = useState<PlayerModel>();
-  const fetchPlayer = async () => {
+  const fetchGame = async () => {
     const playerResponse = await apiClient.player.get();
     if (playerResponse !== null) setPlayer(playerResponse.body);
   };
 
   useEffect(() => {
-    fetchPlayer();
+    const cancelId = setInterval(fetchGame, 100);
+    return () => {
+      clearInterval(cancelId);
+    };
   }, []);
 
   return (
@@ -27,10 +30,10 @@ const GamePage = () => {
               fill="red"
               stroke="black"
               strokeWidth={1}
-              x={player.x}
-              y={player.y}
-              width={500}
-              height={500}
+              x={player.x * 10 - 500}
+              y={player.y * 10}
+              width={50}
+              height={50}
             />
           )}
         </Layer>
