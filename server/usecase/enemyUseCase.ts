@@ -24,7 +24,7 @@ export const enemyUseCase = {
 
     return newEnemy;
   },
-  moveBullet: async (enemyId: string): Promise<EnemyModel> => {
+  moveEnemy: async (enemyId: string): Promise<EnemyModel> => {
     const currentEnemy = await enemyRepository.read(enemyId);
 
     // xは現在ずっと左の方に行くようにする
