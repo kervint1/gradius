@@ -13,15 +13,9 @@ const toModel = (prismaEnemy: Enemy): EnemyModel => ({
 });
 
 export const enemyRepository = {
-  save: async (enemy: EnemyModel): Promise<void> => {
-    await prismaClient.enemy.upsert({
-      where: { id: enemy.id },
-      update: {
-        x: enemy.x,
-        y: enemy.y,
-        health: enemy.health,
-      },
-      create: {
+  create: async (enemy: EnemyModel): Promise<EnemyModel> => {
+    const newEnemy = await prismaClient.enemy.create({
+      data: {
         id: enemy.id,
         x: enemy.x,
         y: enemy.y,
@@ -30,6 +24,7 @@ export const enemyRepository = {
         gameId: enemy.gameId,
       },
     });
+    return toModel(newEnemy);
   },
   readAll: async (gameId: string): Promise<EnemyModel[]> => {
     const enemy = await prismaClient.enemy.findMany({ where: { gameId } });
@@ -41,6 +36,17 @@ export const enemyRepository = {
     });
     if (!enemy) throw new Error("Enemy doesn't exist");
     return toModel(enemy);
+  },
+  update: async (enemy: EnemyModel): Promise<EnemyModel> => {
+    const updatedEnemy = await prismaClient.enemy.update({
+      where: { id: enemy.id },
+      data: {
+        x: enemy.x,
+        y: enemy.y,
+        health: enemy.health,
+      },
+    });
+    return toModel(updatedEnemy);
   },
   delete: async (enemyId: string): Promise<void> => {
     await prismaClient.enemy.delete({

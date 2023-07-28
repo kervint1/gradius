@@ -1,11 +1,9 @@
-import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
-import { userAtom } from 'src/atoms/user';
 import { apiClient } from 'src/utils/apiClient';
 
 const Home = () => {
   const router = useRouter();
-  const [user] = useAtom(userAtom);
+  // const [user] = useAtom(userAtom);
   // スタートボタンが押されたときの処理
   const handleStartButtonClick = async () => {
     console.log('Before post request');
