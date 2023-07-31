@@ -27,7 +27,7 @@ const GamePage = () => {
           {player && (
             <Rect
               Rect
-              fill="blue"
+              fill="yellow"
               stroke="black"
               strokeWidth={1}
               x={player.x * 10}
