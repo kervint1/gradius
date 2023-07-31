@@ -30,7 +30,7 @@ const GamePage = () => {
               fill="red"
               stroke="black"
               strokeWidth={1}
-              x={player.x * 10 - 500}
+              x={player.x * 10}
               y={player.y * 10}
               width={50}
               height={50}
